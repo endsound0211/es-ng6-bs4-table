@@ -1,0 +1,17 @@
+node_modules
+src
+package-lock.json
+rollup.config.js
+tsconfig.json
+resource
+.git
+.gitignore
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace

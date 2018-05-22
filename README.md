@@ -1,27 +1,284 @@
-# EsNgBsTable
+# ES Angular bootstrap Table
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
+## Features
+* create for bootstrap 4
+* card view in mobile
+* get json data from server
+* flexible header and cell template
+* support client and server pagination
+* keep search result on url
+* easy to extend tool
 
-## Development server
+## Table of contents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* [Setup](#setup)
+* [Usage](#usage)
+    * [Basic Usage](#basic-usage)
+    * [General Search](#general-search)
+    * [Formatter and Text Template](#formatter-and-text-template)
+    * [Keep](#keep)
+    * [Fetch Data From API](#fetch-data-from-api)
+* [Variable](#variable)
+* [Method](#method)
+* [Input](#input)
+* [Output](#output)
 
-## Code scaffolding
+## Setup
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+First you need to install the npm module
+````
+npm install es-ng-bs-table
+````
 
-## Build
+Then import bootstrap 4 css in .angular-cli.json
+````json
+{
+  "apps": {
+     "styles": [
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
+        "../node_modules/open-iconic/font/css/open-iconic-bootstrap.css"
+     ]
+  }
+}
+````
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Last import the 'HttpClientModule' and 'BsTableModule' to module
+````typescript
+import {NgModule} from "@angular/core"
+import {HttpClientModule} from "@angular/common/http";
+import {BsTableModule} from "es-ng-bs-table";
 
-## Running unit tests
+@NgModule{
+    imports: [
+        HttpClientModule,
+        BsTableModule,
+        //if you want to keep search result
+        //RouterModule
+    ],
+    /* if you want to add some http interceptors
+    providers: [
+        {provide: HTTP_INTERCEPTORS ...}
+    ]
+    */
+}
+export class AppModule{}
+````
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Usage
 
-## Running end-to-end tests
+client side pagination
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+````angular2html
+<es-ng-table></es-ng-table>
+````
 
-## Further help
+client side pagination structure
+````typescript
+Array<any>
+````
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+server side pagination
+
+````angular2html
+<es-ng-sd-table></es-ng-sd-table>
+````
+
+server side pagination structure
+
+````typescript
+{
+    rows: Array<any>;
+    total: number;
+}
+````
+
+server side params
+
+````typescript
+{
+    limit: number;
+    offset: number;
+    sort: string;
+    order: string;
+    search: string;
+    query: string; //json
+}
+````
+
+
+### Basic Usage
+
+ts:
+
+````typescript
+export class AppComponent {
+  data = [
+    {id: 1, name: "Sean Johnston", score: 99, description: "d1"},
+    {id: 2, name: "Morgan Davies", score: 80, description: "d2"},
+    {id: 3, name: "Morgan John", score: 80, description: "d3"},
+    {id: 4, name: "Tommy Walker", score: 80, description: "d4"},
+    {id: 5, name: "William Lee", score: 80, description: "d5"},
+    {id: 6, name: "Russell Brady", score: 80, description: "d6"},
+    {id: 7, name: "Isaiah Ferguson", score: 80, description: "d7"},
+    {id: 8, name: "Dominic Lynch", score: 80, description: "d8"},
+    {id: 9, name: "Alberto Walls", score: 80, description: "d9"},
+    {id: 10, name: "Jerry Pate", score: 80, description: "d10"},
+    {id: 11, name: "Spencer Gordon", score: 79, description: "d11"},
+  ]
+}
+````
+
+html:
+
+````angular2html
+<div class="container-fluid">
+  <h1>Basic Use</h1>
+  <es-ng-table [data]="data">
+    <es-ng-table-col field="state" [checkbox]="true"></es-ng-table-col>
+    <es-ng-table-col title="ID" field="id"></es-ng-table-col>
+    <es-ng-table-col title="Name" field="name"></es-ng-table-col>
+    <es-ng-table-col title="Score" field="score"></es-ng-table-col>
+    <es-ng-table-col title="Description" field="description"></es-ng-table-col>
+  </es-ng-table>
+</div>
+````
+
+### General Search
+
+html:
+
+````angular2html
+<es-ng-table [data]="data">
+    <es-ng-table-tool-bar>
+      <es-ng-table-general-search></es-ng-table-general-search>
+    </es-ng-table-tool-bar>
+    <es-ng-table-col title="Name" field="name"></es-ng-table-col>
+</es-ng-table>
+````
+
+### Formatter and Text Template
+
+ts: 
+
+````typescript
+export class AppComponent {
+  formatter = (value: any) => {
+    return value + ' postfix'
+  }
+}
+````
+
+html:
+
+````angular2html
+<es-ng-table [data]="data">
+    <es-ng-table-col title="Name" field="name"></es-ng-table-col>
+    <es-ng-table-col title="Score" field="score">
+      <ng-template #textTemplate let-row="row" let-value="value" let-index="index" let-formatter="formatter">
+        <button>{{value}}</button>
+      </ng-template>
+    </es-ng-table-col>
+    <es-ng-table-col title="Description" field="description" [formatter]="formatter"></es-ng-table-col>
+</es-ng-table>
+````
+
+### Keep
+
+**IMPORTANT: NEED IMPORT "RouterModule". ONLY ONE KEEP IN ONE PAGE.**
+
+you will see url change after any params changes(like: page, size, search...)
+
+html:
+
+````angular2html
+<es-ng-table [data]="data" [keep]="true"></es-ng-table>
+````
+
+### Fetch Data From API
+
+html:
+````angular2html
+<es-ng-table url="http://domain/path">
+   <es-ng-table-col field="state" [checkbox]="true"></es-ng-table-col>
+   <es-ng-table-col title="ID" field="id"></es-ng-table-col>
+   <es-ng-table-col title="Name" field="name"></es-ng-table-col>
+</es-ng-table>
+````
+
+
+## Variable
+
+### NgTableComponent & NgSdTableComponent
+
+| Name     | Type         | Default | Description |
+|----------|--------------|---------|-------------|
+| `data`   | Array<any>   |         | data of rows.
+| `rows`   | Array<any>   | []      | current data of rows.
+| `total`  | number       |         | size of total data.
+| `page`   | number       | 1       | current page.
+| `size`   | number       | 10      | size in a page.
+| `search` | string       |         | search text, used in general search.
+| `query`  | string       |         | query json, user in advanced search.
+| `sort`   | string       |         | sort by field.
+| `order`  | 'asc' 'desc' | 'asc'   | order.
+| `url`    | string       |         | get json from url.
+| `keep`   | boolean      | false   | keep search result.
+
+### NgTableColComponent
+
+| Name       | Type    | Default | Description |
+|------------|---------|---------|-------------|
+| `title`    | string  |         | th text.
+| `field`    | string  |         | field name in row.
+| `checkbox` | boolean | false   | is checkbox cell?
+| `radio`    | boolean | false   | is radio cell?
+
+## Method
+
+### NgTableComponent & NgSdTableComponent
+
+| Name             | Param          | Return     | Description |
+|------------------|----------------|------------|-------------|
+| `refresh`        |                | void       | refresh rows.
+| `generalSearch`  | (term: string) | void       | general search.
+| `advancedSearch` | (query: any)   | void       | advance search.
+| `getSelections`  |                | Array<any> | get selected rows.
+
+## Input
+
+### NgTableComponent & NgSdTableComponent
+
+| Name              | Type         | Default | Description |
+|-------------------|--------------|---------|-------------|
+| `data`            | Array<any>   |         | data of rows.
+| `url`             | string       |         | get json from url.
+| `sort`            | string       |         | sort by field.
+| `order`           | 'asc' 'desc' | 'asc'   | order.
+| `keep`            | boolean      | false   | keep search result.
+| `queryFun`        | Function     |         | (client pagination) advanced search. (row: any, index: number, query: any) => Array<any>
+| `responseHandler` | Function     |         | handler after get data from url. (data: any) => any
+
+
+### NgTableColComponent
+
+| Name        | Type     | Default | Description |
+|-------------|----------|---------|-------------|
+| `title`     | string   |         | th text.
+| `field`     | string   |         | field name in row.
+| `checkbox`  | boolean  | false   | is checkbox cell?
+| `radio`     | boolean  | false   | is radio cell?
+| `formatter` | Function |         | formatter cell. (value: any) => string
+
+## Output
+
+### NgTableComponent & NgSdTableComponent
+
+| Name         | Type | Description |
+|--------------|------|-------------|
+| `onRowClick` | any  | fired when row be clicked.
+
+### NgTableColComponent
+
+| Name         | Type | Description |
+|--------------|------|-------------|
+| `onCellClick` | any  | fired when cell be clicked.
