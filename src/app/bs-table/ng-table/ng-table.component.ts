@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import {NgTableColComponent} from "../ng-table-col/ng-table-col.component";
 import {from} from "linq/linq";
-import {Subscription, BehaviorSubject} from "rxjs";
+import {Subscription, BehaviorSubject, Observable} from "rxjs";
 import {from as _from, combineLatest as _combineLatest} from "rxjs";
 import {filter, switchMap, map, take, skip, debounceTime, distinctUntilChanged} from "rxjs/operators";
 import {isNullOrUndefined, isObject} from "util";

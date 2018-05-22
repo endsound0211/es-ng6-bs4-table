@@ -1,4 +1,4 @@
-# ES Angular bootstrap Table
+# ES Angular 6 Bootstrap 4 Table
 
 ## Features
 * create for bootstrap 4
