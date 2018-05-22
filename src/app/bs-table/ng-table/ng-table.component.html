@@ -1,0 +1,65 @@
+<div class="row">
+  <ng-content select="es-ng-table-tool-bar"></ng-content>
+</div>
+<div class="row">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <ng-container *ngFor="let col of cols.toArray()">
+        <ng-container [ngSwitch]="col | templateType">
+          <ng-container *ngSwitchCase="TD_TEMPLATE.CHECKBOX">
+            <th class="bs-checkbox">
+              <input type="checkbox" name="checkboxAll" (click)="checkAll(checkboxAll.checked, col.field)" #checkboxAll>
+            </th>
+          </ng-container>
+          <ng-container *ngSwitchCase="TD_TEMPLATE.RADIO">
+            <th class="bs-radio">{{col.title}}</th>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <th (click)="toggleOrder(col.field)">
+              {{col.title}}
+              <span class="oi oi-caret-bottom" *ngIf="sort == col.field && order == 'desc'"></span>
+              <span class="oi oi-caret-top" *ngIf="sort == col.field && order == 'asc'"></span>
+            </th>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of (rows | slice: startIndex: endIndex);index as i" (click)="onRowClick.emit(row)">
+      <td *ngFor="let col of cols.toArray()" (click)="col.onCellClick.emit(row)" [attr.data-title]="col.title">
+        <ng-container [ngSwitch]="col | templateType">
+          <ng-container *ngSwitchCase="TD_TEMPLATE.CHECKBOX">
+            <input type="checkbox" value="true" name="checkbox{{i}}" [(ngModel)]="row[col.field]">
+          </ng-container>
+          <ng-container *ngSwitchCase="TD_TEMPLATE.RADIO">
+            <input type="radio" name="{{col.field}}" (change)="radioChange(row, col.field)"/>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <ng-container *ngTemplateOutlet="col.textTemplate; context: {row: row, value: row[col.field], index: i, formatter: col.formatter}"></ng-container>
+          </ng-container>
+        </ng-container>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <div class="col-md-8">
+    <span>顯示第 {{startIndex + 1}} 到第 {{endIndex > total? total: endIndex}} 項記錄，總共 {{total}} 項記錄</span>
+    <span>每頁顯示</span>
+    <div ngbDropdown placement="top-right" class="d-inline-block">
+      <button class="btn btn-outline-secondary" id="dropdownBasic2" ngbDropdownToggle>{{size}}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+        <button class="dropdown-item" *ngFor="let sizeItem of sizeList" (click)="selectSize(sizeItem)">{{sizeItem}}</button>
+      </div>
+    </div>
+    <span>項記錄</span>
+  </div>
+  <div class="col-md-4" *ngIf="total > size">
+    <div class="float-md-right">
+      <ngb-pagination [collectionSize]="total" [(page)]="page" [maxSize]="5" [pageSize]="size" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+    </div>
+  </div>
+</div>

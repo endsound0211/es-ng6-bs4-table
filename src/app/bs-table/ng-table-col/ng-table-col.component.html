@@ -1,0 +1,7 @@
+<ng-template #textTemplate let-row="row" let-value="value" let-index="index" let-formatter="formatter">
+  {{formatter(value)}}
+</ng-template>
+
+<ng-template #editTemplate let-col="col" let-query="query">
+  <input class="form-control" placeholder="{{col.title}}" name="{{col.field}}" [(ngModel)]="query[col.field]">
+</ng-template>
