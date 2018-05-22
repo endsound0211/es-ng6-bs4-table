@@ -39,3 +39,4 @@ testem.log
 Thumbs.db
 
 *.tgz
+/.ng_pkg_build
