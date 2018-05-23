@@ -8,10 +8,10 @@ import { NgSdTableComponent } from './ng-sd-table/ng-sd-table.component';
 import { NgTableGeneralSearchComponent } from './ng-table-general-search/ng-table-general-search.component';
 import { TemplateTypePipe } from './template-type.pipe';
 import { NgTableToolBarComponent } from './ng-table-tool-bar/ng-table-tool-bar.component';
-import {NG_TABLE_I18N} from "./locale/ng-table-i18n.service";
+import {NG_TABLE_I18N, NgTableI18nService} from "./locale/ng-table-i18n.service";
 import {NgTableEnUsService} from "./locale/ng-table-en-us.service";
 
-export function ngTableI18nFactory(injector: Injector){
+export function ngTableI18nFactory(injector: Injector): NgTableI18nService{
   try{
     return injector.get(NG_TABLE_I18N)
   }catch (e){

@@ -1,7 +1,8 @@
 # ES Angular 6 Bootstrap 4 Table
 
 ## ToDo List
-* advance search
+* tool - advance search
+* tool - hide column
 * editable
 * more events
 * more handler
