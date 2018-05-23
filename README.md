@@ -54,7 +54,7 @@ Last import the 'HttpClientModule' and 'BsTableModule' to module
 ````typescript
 import {NgModule} from "@angular/core"
 import {HttpClientModule} from "@angular/common/http";
-import {BsTableModule} from "es-ng-bs-table";
+import {BsTableModule} from "es-ng4-bs6-table";
 
 @NgModule{
     imports: [
