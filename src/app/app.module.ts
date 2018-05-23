@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import {BsTableModule} from "./bs-table/bs-table.module";
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import {BsTableModule} from "./bs-table/bs-table.module";
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
     BsTableModule,
   ],
