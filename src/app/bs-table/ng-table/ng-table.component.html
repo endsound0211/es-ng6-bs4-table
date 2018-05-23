@@ -47,15 +47,15 @@
 </div>
 <div class="row">
   <div class="col-md-8">
-    <span>顯示第 {{startIndex + 1}} 到第 {{endIndex > total? total: endIndex}} 項記錄，總共 {{total}} 項記錄</span>
-    <span>每頁顯示</span>
+    <span>{{formatShowingRows(startIndex + 1, endIndex > total? total: endIndex, total)}}</span>
+    <span>{{formatBeforePerPage()}}</span>
     <div ngbDropdown placement="top-right" class="d-inline-block">
       <button class="btn btn-outline-secondary" id="dropdownBasic2" ngbDropdownToggle>{{size}}</button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
         <button class="dropdown-item" *ngFor="let sizeItem of sizeList" (click)="selectSize(sizeItem)">{{sizeItem}}</button>
       </div>
     </div>
-    <span>項記錄</span>
+    <span>{{formatAfterPerPage()}}</span>
   </div>
   <div class="col-md-4" *ngIf="total > size">
     <div class="float-md-right">

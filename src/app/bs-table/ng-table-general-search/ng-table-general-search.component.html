@@ -1,1 +1,1 @@
-<input class="form-control" placeholder="搜尋" (input)="search(searchTermInput.value)" id="searchTerm" name="searchTerm" [(ngModel)]="searchTerm" #searchTermInput/>
+<input class="form-control" placeholder="{{formatSearch()}}" (input)="search(searchTermInput.value)" id="searchTerm" name="searchTerm" [(ngModel)]="searchTerm" #searchTermInput/>

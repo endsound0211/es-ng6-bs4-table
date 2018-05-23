@@ -1,7 +1,6 @@
 # ES Angular 6 Bootstrap 4 Table
 
-##ToDo List
-* i18n
+## ToDo List
 * advance search
 * editable
 * more events
@@ -16,6 +15,7 @@
 * support client and server pagination
 * keep params on url
 * easy to extend tool
+* i18n
 
 ## Table of contents
 
@@ -26,7 +26,8 @@
     * [Formatter and Text Template](#formatter-and-text-template)
     * [Keep](#keep)
     * [Fetch Data From API](#fetch-data-from-api)
-* [Extend Tool](#extend-tool)
+    * [Extend Tool](#extend-tool)
+    * [i18n](#i18n)
 * [Variable](#variable)
 * [Method](#method)
 * [Input](#input)
@@ -213,7 +214,7 @@ html:
 </es-ng-table>
 ````
 
-## Extend Tool
+### Extend Tool
 
 create tool component with inject NG_TABLE_TOKEN
 
@@ -247,7 +248,20 @@ then, put this component in <es-ng-table-tool-bar>
 </es-ng-table>
 ````
 
+### i18n
 
+The default locale is en-us. Just provide "NG_TABLE_I18N" to change locale. 
+
+````typescript
+@NgModule{
+    imports: [BsTableModule],
+    providers: [
+        {provide: NG_TABLE_I18N, useClass: NgTableZhTwService}
+    ]
+}
+
+````
+current locale support: 'zh-tw', 'en-us'
 
 ## Variable
 

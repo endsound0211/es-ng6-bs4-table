@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
-  Component, ContentChildren, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, OnInit, Optional, Output,
+  Component, ContentChildren, EventEmitter, forwardRef, Inject, Input, OnChanges, OnDestroy, OnInit, Optional,
+  Output,
   QueryList,
   SimpleChanges
 } from '@angular/core';
@@ -14,6 +15,7 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TD_TEMPLATE} from "../template-type.pipe";
 import {NG_TABLE_TOKEN, NgTable} from "../ng-table-token";
+import {NG_TABLE_I18N, NgTableI18nService} from "../locale/ng-table-i18n.service";
 
 
 @Component({
@@ -121,7 +123,8 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
   constructor(
     protected http: HttpClient,
     @Optional() protected router: Router,
-    @Optional() protected route: ActivatedRoute
+    @Optional() protected route: ActivatedRoute,
+    @Inject(NG_TABLE_I18N)protected ngTableI18nService: NgTableI18nService
   ) { }
 
   ngOnInit() {
@@ -286,4 +289,9 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
   refresh(){
     this.refresh$.next(this.refresh$.getValue() + 1);
   }
+
+  //i18n
+  formatAfterPerPage = () => {return this.ngTableI18nService.formatAfterPerPage();};
+  formatBeforePerPage = () => {return this.ngTableI18nService.formatBeforePerPage();};
+  formatShowingRows = (from: number, to: number, total: number) => {return this.ngTableI18nService.formatShowingRows(from, to , total)};
 }
