@@ -1,12 +1,20 @@
 # ES Angular 6 Bootstrap 4 Table
 
+##ToDo List
+* i18n
+* advance search
+* editable
+* more events
+* more handler
+
+
 ## Features
 * create for bootstrap 4
 * card view in mobile
 * get json data from server
 * flexible header and cell template
 * support client and server pagination
-* keep search result on url
+* keep params on url
 * easy to extend tool
 
 ## Table of contents
@@ -18,10 +26,12 @@
     * [Formatter and Text Template](#formatter-and-text-template)
     * [Keep](#keep)
     * [Fetch Data From API](#fetch-data-from-api)
+* [Extend Tool](#extend-tool)
 * [Variable](#variable)
 * [Method](#method)
 * [Input](#input)
 * [Output](#output)
+* [Demo](#demo)
 
 ## Setup
 
@@ -30,15 +40,13 @@ First you need to install the npm module
 npm install es-ng-bs-table
 ````
 
-Then import bootstrap 4 css in .angular-cli.json
+Then import bootstrap 4 css in angular.json
 ````json
 {
-  "apps": {
-     "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "../node_modules/open-iconic/font/css/open-iconic-bootstrap.css"
-     ]
-  }
+  "styles": [
+    "../node_modules/bootstrap/dist/css/bootstrap.css",
+    "../node_modules/open-iconic/font/css/open-iconic-bootstrap.css"
+  ]
 }
 ````
 
@@ -205,6 +213,41 @@ html:
 </es-ng-table>
 ````
 
+## Extend Tool
+
+create tool component with inject NG_TABLE_TOKEN
+
+````typescript
+export class NgTableGeneralSearchComponent implements OnInit {
+  searchTerm: string = "";
+
+  constructor(
+    @Inject(NG_TABLE_TOKEN) private table: NgTable
+  ) { }
+
+  ngOnInit() {
+    this.table.search$
+      .pipe(take(1))
+      .subscribe((term) =>this.searchTerm = term);
+  }
+
+  search(searchTerm: string){
+    this.table.generalSearch(searchTerm);
+  }
+
+}
+````
+
+then, put this component in <es-ng-table-tool-bar>
+````angular2html
+<es-ng-table [data]="data">
+    <es-ng-table-tool-bar>
+      <es-ng-table-general-search></es-ng-table-general-search>
+    </es-ng-table-tool-bar>
+</es-ng-table>
+````
+
+
 
 ## Variable
 
@@ -282,3 +325,10 @@ html:
 | Name         | Type | Description |
 |--------------|------|-------------|
 | `onCellClick` | any  | fired when cell be clicked.
+
+## Demo
+````
+  git clone https://github.com/endsound0211/es-ng6-bs4-table.git
+  npm install
+  ng serve
+````

@@ -1,8 +1,9 @@
-import {Component, OnInit, Optional} from '@angular/core';
+import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {NgTableComponent} from "../ng-table/ng-table.component";
 import {NgSdTableComponent} from "../ng-sd-table/ng-sd-table.component";
 import {isNullOrUndefined} from "util";
 import {take} from "rxjs/internal/operators";
+import {NG_TABLE_TOKEN, NgTable} from "../ng-table-token";
 
 @Component({
   selector: 'es-ng-table-general-search',
@@ -11,14 +12,12 @@ import {take} from "rxjs/internal/operators";
 })
 export class NgTableGeneralSearchComponent implements OnInit {
   searchTerm: string = "";
-  table: NgTableComponent | NgSdTableComponent;
+
   constructor(
-    @Optional() private ngTableComponent: NgTableComponent,
-    @Optional() private ngSdTableComponent: NgSdTableComponent
+    @Inject(NG_TABLE_TOKEN) private table: NgTable
   ) { }
 
   ngOnInit() {
-    this.table = isNullOrUndefined(this.ngTableComponent)? this.ngSdTableComponent: this.ngTableComponent;
     this.table.search$
       .pipe(take(1))
       .subscribe((term) =>this.searchTerm = term);

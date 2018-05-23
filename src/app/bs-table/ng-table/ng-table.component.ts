@@ -1,7 +1,8 @@
 import {
-    AfterViewInit,
-    Component, ContentChildren, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Optional, Output, QueryList,
-    SimpleChanges
+  AfterViewInit,
+  Component, ContentChildren, EventEmitter, forwardRef, Input, OnChanges, OnDestroy, OnInit, Optional, Output,
+  QueryList,
+  SimpleChanges
 } from '@angular/core';
 import {NgTableColComponent} from "../ng-table-col/ng-table-col.component";
 import {from} from "linq/linq";
@@ -12,14 +13,18 @@ import {isNullOrUndefined, isObject} from "util";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TD_TEMPLATE} from "../template-type.pipe";
+import {NG_TABLE_TOKEN, NgTable} from "../ng-table-token";
 
 
 @Component({
   selector: 'es-ng-table',
   templateUrl: './ng-table.component.html',
-  styleUrls: ['./ng-table.component.css']
+  styleUrls: ['./ng-table.component.css'],
+  providers: [
+    {provide: NG_TABLE_TOKEN, useExisting: forwardRef(() => NgTableComponent), multi: false}
+  ]
 })
-export class NgTableComponent implements OnInit, AfterViewInit,  OnDestroy, OnChanges {
+export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDestroy, OnChanges {
   TD_TEMPLATE = TD_TEMPLATE;
 
   //basic
