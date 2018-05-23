@@ -37,7 +37,7 @@
 
 First you need to install the npm module
 ````
-npm install es-ng-bs-table
+npm install es-ng6-bs4-table
 ````
 
 Then import bootstrap 4 css in angular.json
