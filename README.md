@@ -169,7 +169,7 @@ html:
 ````
 
 ### Formatter and Text Template
-![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/formatter_and_text.png)
+![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/formatter_and_template.png)
 
 ts: 
 
