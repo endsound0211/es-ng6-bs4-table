@@ -117,6 +117,7 @@ server side params
 
 
 ### Basic Usage
+![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/basic_use.png)
 
 ts:
 
@@ -154,6 +155,7 @@ html:
 ````
 
 ### General Search
+![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/general_search.png)
 
 html:
 
@@ -167,6 +169,7 @@ html:
 ````
 
 ### Formatter and Text Template
+![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/formatter_and_text.png)
 
 ts: 
 
@@ -193,6 +196,7 @@ html:
 ````
 
 ### Keep
+![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/keep.png)
 
 **IMPORTANT: NEED IMPORT "RouterModule". ONLY ONE KEEP IN ONE PAGE.**
 
