@@ -2,6 +2,6 @@
   {{formatter(value)}}
 </ng-template>
 
-<ng-template #editTemplate let-col="col" let-query="query">
-  <input class="form-control" placeholder="{{col.title}}" name="{{col.field}}" [(ngModel)]="query[col.field]">
+<ng-template #editTemplate let-col="col" let-obj="obj">
+  <input class="form-control" placeholder="{{col.title}}" name="{{col.field}}" [(ngModel)]="obj[col.field]">
 </ng-template>

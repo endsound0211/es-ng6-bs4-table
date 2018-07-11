@@ -155,7 +155,7 @@ html:
 
 ### Search
 ![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/general_search.png)
-
+![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/advanced_search.png)
 html:
 
 ````angular2html
@@ -166,7 +166,14 @@ html:
         <es-ng-table-advanced-search></es-ng-table-advanced-search>
       </div>
     </es-ng-table-tool-bar>
-    <es-ng-table-col title="Name" field="name"></es-ng-table-col>
+    <es-ng-table-col title="ID" field="id"></es-ng-table-col>
+    <es-ng-table-col title="Name" field="name">
+        <ng-template #editTemplate let-col="col" let-obj="obj">
+           <select class="form-control" name="{{col.field}}" [(ngModel)]="obj[col.field]">
+              <option *ngFor="let row of data" [ngValue]="row.name">{{row.name}}</option>
+            </select>
+        </ng-template>
+    </es-ng-table-col>
 </es-ng-table>
 ````
 

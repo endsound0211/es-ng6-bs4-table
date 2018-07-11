@@ -11,7 +11,7 @@
     <form class="form-group row" *ngFor="let col of cols">
       <label class="col-sm-4 col-form-label">{{col.title}}</label>
       <div class="col-sm-8">
-        <ng-container *ngTemplateOutlet="col.editTemplate; context: {col: col, query: query}"></ng-container>
+        <ng-container *ngTemplateOutlet="col.editTemplate; context: {col: col, obj: query}"></ng-container>
       </div>
     </form>
   </div>
