@@ -1,7 +1,6 @@
 # ES Angular 6 Bootstrap 4 Table
 
 ## ToDo List
-* tool - advance search
 * tool - hide column
 * editable
 * more events
@@ -162,8 +161,10 @@ html:
 ````angular2html
 <es-ng-table [data]="data">
     <es-ng-table-tool-bar>
-      <es-ng-table-general-search></es-ng-table-general-search>
-      <es-ng-table-advanced-search></es-ng-table-advanced-search>
+      <div class="row">
+        <es-ng-table-general-search></es-ng-table-general-search>
+        <es-ng-table-advanced-search></es-ng-table-advanced-search>
+      </div>
     </es-ng-table-tool-bar>
     <es-ng-table-col title="Name" field="name"></es-ng-table-col>
 </es-ng-table>
