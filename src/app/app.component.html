@@ -8,10 +8,13 @@
     <es-ng-table-col title="Description" field="description"></es-ng-table-col>
   </es-ng-table>
 
-  <h1>General Search</h1>
+  <h1>Search</h1>
   <es-ng-table [data]="data">
     <es-ng-table-tool-bar>
-      <es-ng-table-general-search></es-ng-table-general-search>
+      <div class="row">
+        <es-ng-table-general-search></es-ng-table-general-search>
+        <es-ng-table-advanced-search></es-ng-table-advanced-search>
+      </div>
     </es-ng-table-tool-bar>
     <es-ng-table-col field="state" [checkbox]="true"></es-ng-table-col>
     <es-ng-table-col title="ID" field="id"></es-ng-table-col>

@@ -15,4 +15,7 @@ export class NgTableEnUsService implements NgTableI18nService{
   formatSearch = () => {
     return `Search`;
   };
+  formatAdvancedSearch = () => {
+    return `Advanced Search`
+  };
 }

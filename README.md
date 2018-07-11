@@ -23,7 +23,7 @@
 * [Setup](#setup)
 * [Usage](#usage)
     * [Basic Usage](#basic-usage)
-    * [General Search](#general-search)
+    * [Search](#search)
     * [Formatter and Text Template](#formatter-and-text-template)
     * [Keep](#keep)
     * [Fetch Data From API](#fetch-data-from-api)
@@ -154,7 +154,7 @@ html:
 </div>
 ````
 
-### General Search
+### Search
 ![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/general_search.png)
 
 html:
@@ -163,6 +163,7 @@ html:
 <es-ng-table [data]="data">
     <es-ng-table-tool-bar>
       <es-ng-table-general-search></es-ng-table-general-search>
+      <es-ng-table-advanced-search></es-ng-table-advanced-search>
     </es-ng-table-tool-bar>
     <es-ng-table-col title="Name" field="name"></es-ng-table-col>
 </es-ng-table>

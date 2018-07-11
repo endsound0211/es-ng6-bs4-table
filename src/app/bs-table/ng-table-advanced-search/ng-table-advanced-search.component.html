@@ -1,0 +1,21 @@
+<button type="button" class="btn btn-outline-secondary" (click)="openModel()"><span class="oi oi-chevron-bottom"></span></button>
+
+<ng-template #advancedSearchModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{formatAdvancedSearch()}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d(0)">
+      <span aria-hidden="true">x</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form-group row" *ngFor="let col of cols">
+      <label class="col-sm-4 col-form-label">{{col.title}}</label>
+      <div class="col-sm-8">
+        <ng-container *ngTemplateOutlet="col.editTemplate; context: {col: col, query: query}"></ng-container>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c(0)">{{formatSearch()}}</button>
+  </div>
+</ng-template>

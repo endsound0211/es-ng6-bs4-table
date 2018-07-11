@@ -1,7 +1,4 @@
 import {Component, Inject, OnInit, Optional} from '@angular/core';
-import {NgTableComponent} from "../ng-table/ng-table.component";
-import {NgSdTableComponent} from "../ng-sd-table/ng-sd-table.component";
-import {isNullOrUndefined} from "util";
 import {take} from "rxjs/internal/operators";
 import {NG_TABLE_TOKEN, NgTable} from "../ng-table-token";
 import {NG_TABLE_I18N, NgTableI18nService} from "../locale/ng-table-i18n.service";

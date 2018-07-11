@@ -7,4 +7,5 @@ export interface NgTableI18nService{
   formatBeforePerPage: () => string;
   formatAfterPerPage: () => string;
   formatSearch: () => string;
+  formatAdvancedSearch: () => string;
 }

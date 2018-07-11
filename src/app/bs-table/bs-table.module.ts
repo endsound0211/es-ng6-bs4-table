@@ -10,6 +10,7 @@ import { TemplateTypePipe } from './template-type.pipe';
 import { NgTableToolBarComponent } from './ng-table-tool-bar/ng-table-tool-bar.component';
 import {NG_TABLE_I18N, NgTableI18nService} from "./locale/ng-table-i18n.service";
 import {NgTableEnUsService} from "./locale/ng-table-en-us.service";
+import { NgTableAdvancedSearchComponent } from './ng-table-advanced-search/ng-table-advanced-search.component';
 
 export function ngTableI18nFactory(injector: Injector): NgTableI18nService{
   try{
@@ -33,6 +34,7 @@ export function ngTableI18nFactory(injector: Injector): NgTableI18nService{
     NgTableGeneralSearchComponent,
     TemplateTypePipe,
     NgTableToolBarComponent,
+    NgTableAdvancedSearchComponent,
   ],
   exports: [
     NgTableComponent,
@@ -40,6 +42,7 @@ export function ngTableI18nFactory(injector: Injector): NgTableI18nService{
     NgSdTableComponent,
     NgTableToolBarComponent,
     NgTableGeneralSearchComponent,
+    NgTableAdvancedSearchComponent
   ],
   providers: [
     {provide: NG_TABLE_I18N, useFactory: ngTableI18nFactory, deps: [Injector], multi: false}

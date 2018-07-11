@@ -15,4 +15,7 @@ export class NgTableZhTwService implements NgTableI18nService{
   formatSearch = () => {
     return `搜尋`;
   };
+  formatAdvancedSearch = () => {
+    return `進階搜尋`;
+  };
 }

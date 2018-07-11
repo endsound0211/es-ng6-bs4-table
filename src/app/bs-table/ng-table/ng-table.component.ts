@@ -16,6 +16,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TD_TEMPLATE} from "../template-type.pipe";
 import {NG_TABLE_TOKEN, NgTable} from "../ng-table-token";
 import {NG_TABLE_I18N, NgTableI18nService} from "../locale/ng-table-i18n.service";
+import {isEmpty} from "rxjs/internal/operators";
 
 
 @Component({
@@ -58,12 +59,14 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
   querySub: Subscription;
   @Input()
   queryFun = (row: any, index: number, query: any) => {
-    return !from(query).where((field) => {
-      let formatter = from(this.cols.toArray())
-        .where((col) => col.field == field.key)
-        .select((col) => col.formatter)
-        .defaultIfEmpty((value) => value + "").first();
-       return  formatter(row[field.key]).toString().includes(field.value.toString())}
+    return !from(query)
+      .where((field) => field.value != '')
+      .where((field) => {
+        let formatter = from(this.cols.toArray())
+          .where((col) => col.field == field.key)
+          .select((col) => col.formatter)
+          .defaultIfEmpty((value) => value + "").first();
+         return  formatter(row[field.key]).toString().includes(field.value.toString())}
       ).isEmpty();
   };
 
