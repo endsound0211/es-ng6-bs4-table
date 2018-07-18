@@ -40,6 +40,9 @@
   td:before:first-child {
     display:none
   }
+  td:first-child {
+    padding-left: 45%;
+  }
   td:last-child{
     border-bottom:none;}
 }
