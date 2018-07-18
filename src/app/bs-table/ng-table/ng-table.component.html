@@ -28,7 +28,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let row of (rows | slice: startIndex: endIndex);index as i" (click)="onRowClick.emit(row)">
-      <td *ngFor="let col of cols.toArray()" (click)="col.onCellClick.emit(row)" [attr.data-title]="col.title">
+      <td *ngFor="let col of cols.toArray()" (click)="col.onCellClick.emit(row)" [attr.data-title]="col.title" [ngClass]="{'bs-checkbox': col.checkbox, 'bs-radio': col.radio}">
         <ng-container [ngSwitch]="col | templateType">
           <ng-container *ngSwitchCase="TD_TEMPLATE.CHECKBOX">
             <input type="checkbox" value="true" name="checkbox{{i}}" [(ngModel)]="row[col.field]">

@@ -40,8 +40,11 @@
   td:before:first-child {
     display:none
   }
-  td:first-child {
-    padding-left: 45%;
+  td.bs-checkbox {
+    padding-left: 6px;
+  }
+  td.bs-radio{
+    padding-left: 6px;
   }
   td:last-child{
     border-bottom:none;}
