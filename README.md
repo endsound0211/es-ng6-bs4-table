@@ -26,8 +26,12 @@
     * [Formatter and Text Template](#formatter-and-text-template)
     * [Keep](#keep)
     * [Fetch Data From API](#fetch-data-from-api)
-    * [Extend Tool](#extend-tool)
     * [i18n](#i18n)
+* [Tool](#tool)
+    * [General Search](#general-search)
+    * [Advanced Search](#advanced-search)
+    * [Hide Column](#hide-column)
+    * [Extend Tool](#extend-tool)
 * [Variable](#variable)
 * [Method](#method)
 * [Input](#input)
@@ -75,24 +79,24 @@ export class AppModule{}
 
 ## Usage
 
-client side pagination
+Client side pagination
 
 ````angular2html
 <es-ng-table></es-ng-table>
 ````
 
-client side pagination structure
+Client side pagination structure
 ````typescript
 Array<any>
 ````
 
-server side pagination
+Server side pagination
 
 ````angular2html
 <es-ng-sd-table></es-ng-sd-table>
 ````
 
-server side pagination structure
+Server side pagination structure
 
 ````typescript
 {
@@ -101,7 +105,7 @@ server side pagination structure
 }
 ````
 
-server side params
+Server side params
 
 ````typescript
 {
@@ -153,30 +157,6 @@ html:
 </div>
 ````
 
-### Search
-![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/general_search.png)
-![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/advanced_search.png)
-html:
-
-````angular2html
-<es-ng-table [data]="data">
-    <es-ng-table-tool-bar>
-      <div class="row">
-        <es-ng-table-general-search></es-ng-table-general-search>
-        <es-ng-table-advanced-search></es-ng-table-advanced-search>
-      </div>
-    </es-ng-table-tool-bar>
-    <es-ng-table-col title="ID" field="id"></es-ng-table-col>
-    <es-ng-table-col title="Name" field="name">
-        <ng-template #editTemplate let-col="col" let-obj="obj">
-           <select class="form-control" name="{{col.field}}" [(ngModel)]="obj[col.field]">
-              <option *ngFor="let row of data" [ngValue]="row.name">{{row.name}}</option>
-            </select>
-        </ng-template>
-    </es-ng-table-col>
-</es-ng-table>
-````
-
 ### Formatter and Text Template
 ![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/formatter_and_template.png)
 
@@ -209,7 +189,7 @@ html:
 
 **IMPORTANT: NEED IMPORT "RouterModule". ONLY ONE KEEP IN ONE PAGE.**
 
-you will see url change after any params changes(like: page, size, search...)
+You will see url change after any params changes(like: page, size, search...)
 
 html:
 
@@ -225,6 +205,87 @@ html:
    <es-ng-table-col field="state" [checkbox]="true"></es-ng-table-col>
    <es-ng-table-col title="ID" field="id"></es-ng-table-col>
    <es-ng-table-col title="Name" field="name"></es-ng-table-col>
+</es-ng-table>
+````
+
+### i18n
+
+The default locale is en-us. Just provide "NG_TABLE_I18N" to change locale. 
+
+````typescript
+@NgModule{
+    imports: [BsTableModule],
+    providers: [
+        {provide: NG_TABLE_I18N, useClass: NgTableZhTwService}
+    ]
+}
+
+````
+Current locale support: 'zh-tw', 'en-us'
+
+## Tool
+add tool in <es-ng-table-tool-bar>
+html:
+````angular2html
+<es-ng-table>
+  <es-ng-table-tool-bar>
+    <div class="row">
+      <!--add tool here-->
+    </div>
+  </es-ng-table-tool-bar>
+</es-ng-table>
+````
+
+### General Search
+![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/general_search.png)
+html:
+````angular2html
+<es-ng-table [data]="data">
+    <es-ng-table-tool-bar>
+      <div class="row">
+        <es-ng-table-general-search></es-ng-table-general-search>
+      </div>
+    </es-ng-table-tool-bar>
+    <es-ng-table-col title="ID" field="id"></es-ng-table-col>
+    <es-ng-table-col title="Name" field="name"></es-ng-table-col>
+</es-ng-table>
+````
+
+### Advanced Search
+![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/advanced_search.png)
+You can user <ng-template #editTemplate let-col="col" let-obj="obj"> to customize form control
+
+html:
+````angular2html
+<es-ng-table [data]="data">
+    <es-ng-table-tool-bar>
+      <div class="row">
+        <es-ng-table-advanced-search></es-ng-table-advanced-search>
+      </div>
+    </es-ng-table-tool-bar>
+    <es-ng-table-col title="ID" field="id"></es-ng-table-col>
+    <es-ng-table-col title="Name" field="name">
+        <ng-template #editTemplate let-col="col" let-obj="obj">
+           <select class="form-control" name="{{col.field}}" [(ngModel)]="obj[col.field]">
+              <option *ngFor="let row of data" [ngValue]="row.name">{{row.name}}</option>
+            </select>
+        </ng-template>
+    </es-ng-table-col>
+</es-ng-table>
+````
+
+### Hide Column
+html:
+````angular2html
+<es-ng-table [data]="data">
+    <es-ng-table-tool-bar>
+      <div class="row col-md-12">
+        <es-ng-table-hide-col></es-ng-table-hide-col>
+      </div>
+    </es-ng-table-tool-bar>
+    <es-ng-table-col field="state" [checkbox]="true"></es-ng-table-col>
+    <es-ng-table-col title="ID" field="id"></es-ng-table-col>
+    <es-ng-table-col title="Name" field="name"></es-ng-table-col>
 </es-ng-table>
 ````
 
@@ -261,21 +322,6 @@ then, put this component in <es-ng-table-tool-bar>
     </es-ng-table-tool-bar>
 </es-ng-table>
 ````
-
-### i18n
-
-The default locale is en-us. Just provide "NG_TABLE_I18N" to change locale. 
-
-````typescript
-@NgModule{
-    imports: [BsTableModule],
-    providers: [
-        {provide: NG_TABLE_I18N, useClass: NgTableZhTwService}
-    ]
-}
-
-````
-current locale support: 'zh-tw', 'en-us'
 
 ## Variable
 
@@ -338,6 +384,7 @@ current locale support: 'zh-tw', 'en-us'
 | `field`     | string   |         | field name in row.
 | `checkbox`  | boolean  | false   | is checkbox cell?
 | `radio`     | boolean  | false   | is radio cell?
+| `hidden`    | boolean  | false   | is column hidden?
 | `formatter` | Function |         | formatter cell. (value: any) => string
 
 ## Output
