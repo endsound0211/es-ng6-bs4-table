@@ -6,21 +6,23 @@
     <thead>
     <tr>
       <ng-container *ngFor="let col of cols.toArray()">
-        <ng-container [ngSwitch]="col | templateType">
-          <ng-container *ngSwitchCase="TD_TEMPLATE.CHECKBOX">
-            <th class="bs-checkbox">
-              <input type="checkbox" name="checkboxAll" (click)="checkAll(checkboxAll.checked, col.field)" #checkboxAll>
-            </th>
-          </ng-container>
-          <ng-container *ngSwitchCase="TD_TEMPLATE.RADIO">
-            <th class="bs-radio">{{col.title}}</th>
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            <th (click)="toggleOrder(col.field)">
-              {{col.title}}
-              <span class="oi oi-caret-bottom" *ngIf="sort == col.field && order == 'desc'"></span>
-              <span class="oi oi-caret-top" *ngIf="sort == col.field && order == 'asc'"></span>
-            </th>
+        <ng-container *ngIf="!col.hidden">
+          <ng-container [ngSwitch]="col | templateType">
+            <ng-container *ngSwitchCase="TD_TEMPLATE.CHECKBOX">
+              <th class="bs-checkbox">
+                <input type="checkbox" name="checkboxAll" (click)="checkAll(checkboxAll.checked, col.field)" #checkboxAll>
+              </th>
+            </ng-container>
+            <ng-container *ngSwitchCase="TD_TEMPLATE.RADIO">
+              <th class="bs-radio">{{col.title}}</th>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              <th (click)="toggleOrder(col.field)">
+                {{col.title}}
+                <span class="oi oi-caret-bottom" *ngIf="sort == col.field && order == 'desc'"></span>
+                <span class="oi oi-caret-top" *ngIf="sort == col.field && order == 'asc'"></span>
+              </th>
+            </ng-container>
           </ng-container>
         </ng-container>
       </ng-container>
@@ -28,19 +30,23 @@
     </thead>
     <tbody>
     <tr *ngFor="let row of (rows | slice: startIndex: endIndex);index as i" (click)="onRowClick.emit(row)">
-      <td *ngFor="let col of cols.toArray()" (click)="col.onCellClick.emit(row)" [attr.data-title]="col.title" [ngClass]="{'bs-checkbox': col.checkbox, 'bs-radio': col.radio}">
-        <ng-container [ngSwitch]="col | templateType">
-          <ng-container *ngSwitchCase="TD_TEMPLATE.CHECKBOX">
-            <input type="checkbox" value="true" name="checkbox{{i}}" [(ngModel)]="row[col.field]">
-          </ng-container>
-          <ng-container *ngSwitchCase="TD_TEMPLATE.RADIO">
-            <input type="radio" name="{{col.field}}" (change)="radioChange(row, col.field)"/>
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            <ng-container *ngTemplateOutlet="col.textTemplate; context: {row: row, value: row[col.field], index: i, formatter: col.formatter}"></ng-container>
-          </ng-container>
+      <ng-container *ngFor="let col of cols.toArray()">
+        <ng-container *ngIf="!col.hidden">
+          <td (click)="col.onCellClick.emit(row)" [attr.data-title]="col.title" [ngClass]="{'bs-checkbox': col.checkbox, 'bs-radio': col.radio}">
+            <ng-container [ngSwitch]="col | templateType">
+              <ng-container *ngSwitchCase="TD_TEMPLATE.CHECKBOX">
+                <input type="checkbox" value="true" name="checkbox{{i}}" [(ngModel)]="row[col.field]">
+              </ng-container>
+              <ng-container *ngSwitchCase="TD_TEMPLATE.RADIO">
+                <input type="radio" name="{{col.field}}" (change)="radioChange(row, col.field)"/>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <ng-container *ngTemplateOutlet="col.textTemplate; context: {row: row, value: row[col.field], index: i, formatter: col.formatter}"></ng-container>
+              </ng-container>
+            </ng-container>
+          </td>
         </ng-container>
-      </td>
+      </ng-container>
     </tr>
     </tbody>
   </table>

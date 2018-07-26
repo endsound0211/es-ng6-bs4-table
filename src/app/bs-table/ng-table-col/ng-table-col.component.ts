@@ -16,6 +16,7 @@ export class NgTableColComponent implements OnInit {
 
   @Input() checkbox: boolean = false;
   @Input() radio: boolean = false;
+  @Input() hidden: boolean = false;
 
   @Input()formatter = (value: any) => {
       return value? value + '': '-';
