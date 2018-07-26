@@ -1,0 +1,10 @@
+<div ngbDropdown autoClose="outside">
+  <button type="button" class="btn btn-outline-secondary" ngbDropdownToggle><span class="oi oi-grid-three-up"></span></button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <ng-container *ngFor="let col of cols">
+      <ng-container *ngIf="!col.checkbox && !col.radio">
+        <button class="dropdown-item" [ngClass]="{'text-secondary hidden-col': col.hidden}" (click)="toggleColumn(col)"><span>{{col.field}}</span></button>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

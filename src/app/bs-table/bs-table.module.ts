@@ -11,6 +11,7 @@ import { NgTableToolBarComponent } from './ng-table-tool-bar/ng-table-tool-bar.c
 import {NG_TABLE_I18N, NgTableI18nService} from "./locale/ng-table-i18n.service";
 import {NgTableEnUsService} from "./locale/ng-table-en-us.service";
 import { NgTableAdvancedSearchComponent } from './ng-table-advanced-search/ng-table-advanced-search.component';
+import { NgTableHideColComponent } from './ng-table-hide-col/ng-table-hide-col.component';
 
 export function ngTableI18nFactory(injector: Injector): NgTableI18nService{
   try{
@@ -35,6 +36,7 @@ export function ngTableI18nFactory(injector: Injector): NgTableI18nService{
     TemplateTypePipe,
     NgTableToolBarComponent,
     NgTableAdvancedSearchComponent,
+    NgTableHideColComponent,
   ],
   exports: [
     NgTableComponent,
@@ -42,7 +44,8 @@ export function ngTableI18nFactory(injector: Injector): NgTableI18nService{
     NgSdTableComponent,
     NgTableToolBarComponent,
     NgTableGeneralSearchComponent,
-    NgTableAdvancedSearchComponent
+    NgTableAdvancedSearchComponent,
+    NgTableHideColComponent
   ],
   providers: [
     {provide: NG_TABLE_I18N, useFactory: ngTableI18nFactory, deps: [Injector], multi: false}

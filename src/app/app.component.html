@@ -8,12 +8,49 @@
     <es-ng-table-col title="Description" field="description"></es-ng-table-col>
   </es-ng-table>
 
-  <h1>Search</h1>
+  <h1>Tool-General Search</h1>
   <es-ng-table [data]="data">
     <es-ng-table-tool-bar>
       <div class="row">
         <es-ng-table-general-search></es-ng-table-general-search>
-        <es-ng-table-advanced-search></es-ng-table-advanced-search>
+      </div>
+    </es-ng-table-tool-bar>
+    <es-ng-table-col field="state" [checkbox]="true"></es-ng-table-col>
+    <es-ng-table-col title="ID" field="id"></es-ng-table-col>
+    <es-ng-table-col title="Name" field="name"></es-ng-table-col>
+    <es-ng-table-col title="Score" field="score"></es-ng-table-col>
+    <es-ng-table-col title="Description" field="description"></es-ng-table-col>
+  </es-ng-table>
+
+  <h1>Tool-Advanced Search</h1>
+  <es-ng-table [data]="data">
+    <es-ng-table-tool-bar>
+      <div class="row">
+        <div class="col-md-12">
+          <es-ng-table-advanced-search></es-ng-table-advanced-search>
+        </div>
+      </div>
+    </es-ng-table-tool-bar>
+    <es-ng-table-col field="state" [checkbox]="true"></es-ng-table-col>
+    <es-ng-table-col title="ID" field="id"></es-ng-table-col>
+    <es-ng-table-col title="Name" field="name">
+      <ng-template #editTemplate let-col="col" let-obj="obj">
+        <select class="form-control" name="{{col.field}}" [(ngModel)]="obj[col.field]">
+          <option *ngFor="let row of data" [ngValue]="row.name">{{row.name}}</option>
+        </select>
+      </ng-template>
+    </es-ng-table-col>
+    <es-ng-table-col title="Score" field="score"></es-ng-table-col>
+    <es-ng-table-col title="Description" field="description"></es-ng-table-col>
+  </es-ng-table>
+
+  <h1>Tool-Hide Col</h1>
+  <es-ng-table [data]="data">
+    <es-ng-table-tool-bar>
+      <div class="row">
+        <div class="col-md-12">
+          <es-ng-table-hide-col></es-ng-table-hide-col>
+        </div>
       </div>
     </es-ng-table-tool-bar>
     <es-ng-table-col field="state" [checkbox]="true"></es-ng-table-col>
