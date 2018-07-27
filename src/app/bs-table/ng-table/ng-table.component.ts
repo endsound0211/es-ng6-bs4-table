@@ -297,4 +297,32 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
   formatAfterPerPage = () => {return this.ngTableI18nService.formatAfterPerPage();};
   formatBeforePerPage = () => {return this.ngTableI18nService.formatBeforePerPage();};
   formatShowingRows = (from: number, to: number, total: number) => {return this.ngTableI18nService.formatShowingRows(from, to , total)};
+
+  //hide
+  hideColumn(col: NgTableColComponent): void{
+    col.hide();
+  }
+
+  showColumn(col: NgTableColComponent): void{
+    col.show();
+  }
+
+  toggleColumn(col: NgTableColComponent): void{
+    col.toggle();
+  }
+
+  hideColumnByIndex(index: number): void{
+    if(index >= this.cols.length) return;
+    this.cols.toArray()[index].hide();
+  }
+
+  showColumnByIndex(index: number): void{
+    if(index >= this.cols.length) return;
+    this.cols.toArray()[index].show();
+  }
+
+  toggleColumnByIndex(index: number): void{
+    if(index >= this.cols.length) return;
+    this.cols.toArray()[index].toggle();
+  }
 }

@@ -38,6 +38,16 @@ export class NgTableColComponent implements OnInit {
       this.editTemplate = this.defaultEditTemplate;
   }
 
+  hide(): void{
+    this.hidden = true;
+  }
 
+  show(): void{
+    this.hidden = false;
+  }
+
+  toggle(): void{
+    this.hidden = !this.hidden;
+  }
 
 }

@@ -1,8 +1,8 @@
 # ES Angular 6 Bootstrap 4 Table
 
 ## ToDo List
-* tool - hide column
 * editable
+* more method
 * more events
 * more handler
 
@@ -349,17 +349,33 @@ then, put this component in <es-ng-table-tool-bar>
 | `field`    | string  |         | field name in row.
 | `checkbox` | boolean | false   | is checkbox cell?
 | `radio`    | boolean | false   | is radio cell?
+| `hidden`   | boolean | false   | is column hidden?
 
 ## Method
 
 ### NgTableComponent & NgSdTableComponent
 
-| Name             | Param          | Return     | Description |
-|------------------|----------------|------------|-------------|
-| `refresh`        |                | void       | refresh rows.
-| `generalSearch`  | (term: string) | void       | general search.
-| `advancedSearch` | (query: any)   | void       | advance search.
-| `getSelections`  |                | Array<any> | get selected rows.
+| Name                  | Param                      | Return     | Description |
+|-----------------------|----------------------------|------------|-------------|
+| `refresh`             |                            | void       | refresh rows.
+| `generalSearch`       | (term: string)             | void       | general search.
+| `advancedSearch`      | (query: any)               | void       | advance search.
+| `getSelections`       |                            | Array<any> | get selected rows.
+| `hideColumn`          | (col: NgTableColComponent) | void       | hide column.
+| `showColumn`          | (col: NgTableColComponent) | void       | show column.
+| `toggleColumn`        | (col: NgTableColComponent) | void       | toggle column.
+| `hideColumnByIndex`   | (index: number)            | void       | hide column by index.
+| `showColumnByIndex`   | (index: number)            | void       | show column by index.
+| `toggleColumnByIndex` | (index: number)            | void       | toggle column by index.
+
+
+### NgTableColComponent
+
+| Name     | Param | Return | Description |
+|----------|-------|--------|-------------|
+| `hide`   |       | void   | hide column.
+| `show`   |       | void   | show column.
+| `toggle` |       | void   | toggle column.
 
 ## Input
 

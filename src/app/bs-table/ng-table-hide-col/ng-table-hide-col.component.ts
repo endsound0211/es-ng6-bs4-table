@@ -17,7 +17,7 @@ export class NgTableHideColComponent implements AfterContentChecked {
   }
 
   toggleColumn(col: NgTableColComponent){
-    col.hidden = !col.hidden;
+    col.toggle();
   }
 
 }
