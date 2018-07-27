@@ -120,7 +120,7 @@ Server side params
 
 
 ### Basic Usage
-![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/basic_use.png)
+![image](https://tinyurl.com/yab3leox)
 
 ts:
 
@@ -158,7 +158,7 @@ html:
 ````
 
 ### Formatter and Text Template
-![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/formatter_and_template.png)
+![image](https://tinyurl.com/ya7ymveu)
 
 ts: 
 
@@ -185,7 +185,7 @@ html:
 ````
 
 ### Keep
-![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/keep.png)
+![image](https://tinyurl.com/y9jmylnk)
 
 **IMPORTANT: NEED IMPORT "RouterModule". ONLY ONE KEEP IN ONE PAGE.**
 
@@ -237,7 +237,7 @@ html:
 ````
 
 ### General Search
-![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/general_search.png)
+![image](https://tinyurl.com/y92a8m6q)
 html:
 ````angular2html
 <es-ng-table [data]="data">
@@ -252,7 +252,7 @@ html:
 ````
 
 ### Advanced Search
-![image](https://github.com/endsound0211/es-ng6-bs4-table/blob/master/pic/advanced_search.png)
+![image](https://tinyurl.com/y9dcsrvr)
 You can user <ng-template #editTemplate let-col="col" let-obj="obj"> to customize form control
 
 html:
@@ -275,6 +275,7 @@ html:
 ````
 
 ### Hide Column
+![image](https://tinyurl.com/y7hhvat4)
 html:
 ````angular2html
 <es-ng-table [data]="data">
