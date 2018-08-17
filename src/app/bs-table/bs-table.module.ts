@@ -1,4 +1,4 @@
-import {Injector, NgModule} from '@angular/core';
+import {InjectFlags, Injector, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgTableComponent } from './ng-table/ng-table.component';
 import { NgTableColComponent } from './ng-table-col/ng-table-col.component';
@@ -14,11 +14,7 @@ import { NgTableAdvancedSearchComponent } from './ng-table-advanced-search/ng-ta
 import { NgTableHideColComponent } from './ng-table-hide-col/ng-table-hide-col.component';
 
 export function ngTableI18nFactory(injector: Injector): NgTableI18nService{
-  try{
-    return injector.get(NG_TABLE_I18N)
-  }catch (e){
-    return new NgTableEnUsService();
-  }
+  return injector.get(NG_TABLE_I18N, new NgTableEnUsService(), InjectFlags.SkipSelf);
 }
 
 

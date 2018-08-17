@@ -29,30 +29,30 @@
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngIf="!isLoading; else loading;">
-      <tr *ngFor="let row of rows;index as i" (click)="onRowClick.emit(row)">
-        <ng-container *ngFor="let col of cols.toArray()">
-          <ng-container *ngIf="!col.hidden">
-            <td (click)="col.onCellClick.emit(row)" [attr.data-title]="col.title" [ngClass]="{'bs-checkbox': col.checkbox, 'bs-radio': col.radio}">
-              <ng-container [ngSwitch]="col | templateType">
-                <ng-container *ngSwitchCase="TD_TEMPLATE.CHECKBOX">
-                  <input type="checkbox" value="true" name="checkbox{{i}}" [(ngModel)]="row[col.field]">
+      <ng-container *ngIf="!isLoading; else loading;">
+        <tr *ngFor="let row of rows;index as i" (click)="onRowClick.emit(row)">
+          <ng-container *ngFor="let col of cols.toArray()">
+            <ng-container *ngIf="!col.hidden">
+              <td (click)="col.onCellClick.emit(row)" [attr.data-title]="col.title" [ngClass]="{'bs-checkbox': col.checkbox, 'bs-radio': col.radio}">
+                <ng-container [ngSwitch]="col | templateType">
+                  <ng-container *ngSwitchCase="TD_TEMPLATE.CHECKBOX">
+                    <input type="checkbox" value="true" name="checkbox{{i}}" [(ngModel)]="row[col.field]">
+                  </ng-container>
+                  <ng-container *ngSwitchCase="TD_TEMPLATE.RADIO">
+                    <input type="radio" name="{{col.field}}" (change)="radioChange(row, col.field)"/>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    <ng-container *ngTemplateOutlet="col.textTemplate; context: {row: row, value: row[col.field], index: i, formatter: col.formatter}"></ng-container>
+                  </ng-container>
                 </ng-container>
-                <ng-container *ngSwitchCase="TD_TEMPLATE.RADIO">
-                  <input type="radio" name="{{col.field}}" (change)="radioChange(row, col.field)"/>
-                </ng-container>
-                <ng-container *ngSwitchDefault>
-                  <ng-container *ngTemplateOutlet="col.textTemplate; context: {row: row, value: row[col.field], index: i, formatter: col.formatter}"></ng-container>
-                </ng-container>
-              </ng-container>
-            </td>
+              </td>
+            </ng-container>
           </ng-container>
-        </ng-container>
-      </tr>
-    </ng-container>
-    <ng-template #loading>
-      <tr><td colspan="cols.toArray().length">讀取中...</td></tr>
-    </ng-template>
+        </tr>
+      </ng-container>
+      <ng-template #loading>
+        <tr><td colspan="cols.toArray().length">{{formatLoading()}}</td></tr>
+      </ng-template>
     </tbody>
   </table>
 </div>
