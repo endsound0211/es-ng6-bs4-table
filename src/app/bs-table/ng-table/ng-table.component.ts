@@ -60,8 +60,10 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
   @Input()
   queryFun = (row: any, index: number, query: any) => {
     return !from(query)
-      .where((field) => field.value != '')
       .where((field) => {
+        if(field.value == '')
+          return true;
+
         let formatter = from(this.cols.toArray())
           .where((col) => col.field == field.key)
           .select((col) => col.formatter)
