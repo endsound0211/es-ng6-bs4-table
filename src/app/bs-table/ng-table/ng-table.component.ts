@@ -111,6 +111,7 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
       return params;
     }).pipe(debounceTime(500));
     // .distinctUntilChanged((x, y) => JSON.stringify(x) === JSON.stringify(y));
+  @Output() onInitKeepParams = new EventEmitter<any>();
 
   //loading;
   isLoading: boolean = false;
@@ -269,6 +270,15 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
       queryParams['query'] = JSON.parse(queryParams['query']);
       this.query = queryParams['query'];
     }
+
+    this.onInitKeepParams.emit({
+      sort: this.sort,
+      search: this.search,
+      size: this.size,
+      page: this.page,
+      order: this.order,
+      query: this.query
+    });
 
     this.keepSub = this.params$.pipe(skip(1))
       .subscribe((params) => this.router.navigate(['.'], {queryParams: params, relativeTo: this.route, replaceUrl: true}))

@@ -408,9 +408,10 @@ then, put this component in <es-ng-table-tool-bar>
 
 ### NgTableComponent & NgSdTableComponent
 
-| Name         | Type | Description |
-|--------------|------|-------------|
-| `onRowClick` | any  | fired when row be clicked.
+| Name               | Type | Description |
+|--------------------|------|-------------|
+| `onRowClick`       | any  | fired when row be clicked.
+| `onInitKeepParams` | any  | fired when init keep params
 
 ### NgTableColComponent
 
