@@ -361,7 +361,7 @@ then, put this component in <es-ng-table-tool-bar>
 | `refresh`             |                            | void       | refresh rows.
 | `generalSearch`       | (term: string)             | void       | general search.
 | `advancedSearch`      | (query: any)               | void       | advance search.
-| `getSelections`       |                            | Array<any> | get selected rows.
+| `getSelections`       | (field: string)            | Array<any> | get selected rows.
 | `hideColumn`          | (col: NgTableColComponent) | void       | hide column.
 | `showColumn`          | (col: NgTableColComponent) | void       | show column.
 | `toggleColumn`        | (col: NgTableColComponent) | void       | toggle column.
