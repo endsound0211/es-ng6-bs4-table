@@ -52,6 +52,10 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
   set search(term: string){this.search$.next(term);}
   get search(): string{return this.search$.getValue();}
   searchSub: Subscription;
+  @Input()
+  searchFun = (row: any, cols: Array<NgTableColComponent>, term: string) => {
+    return !from(cols).where((col) => col.formatter(row[col.field]).toString().includes(term)).isEmpty()
+  };
   query$ = new BehaviorSubject<{[key: string]: any}>({});
   @Input()
   set query(value: {[key: string]: any}){this.query$.next(value);}
@@ -86,6 +90,7 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
 
   //refresh
   refresh$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  refreshSub: Subscription;
 
   //http async
   url$: BehaviorSubject<string> = new BehaviorSubject<string>("");
@@ -145,6 +150,16 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
         this.initRows(rows, rows.length);
       });
 
+    //refresh
+    this.refresh$
+      .pipe(
+        filter((r) => r != 0)
+      ).subscribe(r => {
+        this.page$.next(1);
+        this.sort$.next("");
+        this.url$.next(this.url$.getValue());
+    });
+
     if(this.keep) this.keepConfigure();
   }
 
@@ -167,9 +182,7 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
             distinctUntilChanged()
           ).subscribe((term) => {
             if(term) {
-              this.rows = from(this.data).where((row) =>
-                !from(this.cols.toArray()).where((col) => col.formatter(row[col.field]).toString().includes(term)).isEmpty()
-              ).toArray();
+              this.rows = from(this.data).where((row) => this.searchFun(row, this.cols.toArray(), term)).toArray();
               this.total = this.rows.length;
             }else{
               this.initRows(this.data, this.data.length);
@@ -202,6 +215,7 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
     if(!isNullOrUndefined(this.keepSub)) this.keepSub.unsubscribe();
     if(!isNullOrUndefined(this.orderBySub)) this.orderBySub.unsubscribe();
     if(!isNullOrUndefined(this.querySub)) this.querySub.unsubscribe();
+    if(!isNullOrUndefined(this.refresh$)) this.refresh$.unsubscribe();
   }
 
   initRows(rows: Array<any>, total: number){
@@ -337,5 +351,20 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
   toggleColumnByIndex(index: number): void{
     if(index >= this.cols.length) return;
     this.cols.toArray()[index].toggle();
+  }
+
+  hideColumnByField(field: string): void {
+    this.cols.toArray().filter((col) => col.field == field)
+      .forEach((col) => col.hide());
+  }
+
+  showColumnByField(field: string): void {
+    this.cols.toArray().filter((col) => col.field == field)
+      .forEach((col) => col.show());
+  }
+
+  toggleColumnByField(field: string): void{
+    this.cols.toArray().filter((col) => col.field == field)
+      .forEach((col) => col.show());
   }
 }
