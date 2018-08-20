@@ -190,7 +190,7 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
           });
 
         //query
-        this.query$
+        this.querySub = this.query$
           .pipe(
             filter((query) => Object.keys(query).length > 0),
             filter((query) => !isNullOrUndefined(query)),
