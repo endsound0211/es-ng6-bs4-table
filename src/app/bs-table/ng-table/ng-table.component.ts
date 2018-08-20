@@ -151,7 +151,7 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
       });
 
     //refresh
-    this.refresh$
+    this.refreshSub = this.refresh$
       .pipe(
         filter((r) => r != 0)
       ).subscribe(r => {
@@ -215,7 +215,7 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
     if(!isNullOrUndefined(this.keepSub)) this.keepSub.unsubscribe();
     if(!isNullOrUndefined(this.orderBySub)) this.orderBySub.unsubscribe();
     if(!isNullOrUndefined(this.querySub)) this.querySub.unsubscribe();
-    if(!isNullOrUndefined(this.refresh$)) this.refresh$.unsubscribe();
+    if(!isNullOrUndefined(this.refreshSub)) this.refreshSub.unsubscribe();
   }
 
   initRows(rows: Array<any>, total: number){
