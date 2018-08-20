@@ -368,6 +368,9 @@ then, put this component in <es-ng-table-tool-bar>
 | `hideColumnByIndex`   | (index: number)            | void       | hide column by index.
 | `showColumnByIndex`   | (index: number)            | void       | show column by index.
 | `toggleColumnByIndex` | (index: number)            | void       | toggle column by index.
+| `hideColumnByField`   | (field: string)            | void       | hide column by field.
+| `showColumnByField`   | (field: string)            | void       | show column by field.
+| `toggleColumnByField` | (field: string)            | void       | toggle column by field.
 
 
 ### NgTableColComponent

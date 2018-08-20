@@ -47,4 +47,15 @@ export interface NgTable{
   generalSearch(term: string): void;
   advancedSearch(query: any): void;
   refresh(): void;
+
+  //hide
+  hideColumn(col: NgTableColComponent): void;
+  showColumn(col: NgTableColComponent): void;
+  toggleColumn(col: NgTableColComponent): void;
+  hideColumnByIndex(index: number): void;
+  showColumnByIndex(index: number): void;
+  toggleColumnByIndex(index: number): void;
+  hideColumnByField(field: string): void;
+  showColumnByField(field: string): void
+  toggleColumnByField(field: string): void
 }
