@@ -1,11 +1,11 @@
 import {EventEmitter, InjectionToken, QueryList} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import {NgTableColComponent} from "./ng-table-col/ng-table-col.component";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {NgTableColComponent} from './ng-table-col/ng-table-col.component';
 
-export const NG_TABLE_TOKEN = new InjectionToken<NgTable>("NgTable");
+export const NG_TABLE_TOKEN = new InjectionToken<NgTable>('NgTable');
 
-export interface NgTable{
-  //basic
+export interface NgTable {
+  // basic
   data$: BehaviorSubject<Array<any>>;
   data: Array<any>;
   rows$: BehaviorSubject<Array<any>>;
@@ -13,31 +13,31 @@ export interface NgTable{
   cols: QueryList<NgTableColComponent>;
   total: number;
 
-  //pagination
+  // pagination
   page$: BehaviorSubject<number>;
   page: number;
   size$: BehaviorSubject<number>;
   size: number;
   sizeList: Array<number>;
 
-  //search
+  // search
   search$: BehaviorSubject<string>;
   search: string;
   query$: BehaviorSubject<{[key: string]: any}>;
   query: {[key: string]: any};
 
-  //order by
-  sort$: BehaviorSubject<string>
+  // order by
+  sort$: BehaviorSubject<string>;
   sort: string;
   order$: BehaviorSubject<'desc' | 'asc'>;
   order: 'desc' | 'asc';
 
-  //http async
-  url$: BehaviorSubject<string>
+  // http async
+  url$: BehaviorSubject<string>;
   url: string;
   params$: Observable<any>;
 
-  //event
+  // event
   onRowClick: EventEmitter<any>;
   onInitKeepParams: EventEmitter<any>;
 
@@ -48,12 +48,12 @@ export interface NgTable{
   radioChange(row: any, field: string): void;
   toggleOrder(sort: string): void;
   orderBy(sort: string, order: 'desc' | 'asc');
-  selectSize(size: number)
+  selectSize(size: number);
   generalSearch(term: string): void;
   advancedSearch(query: any): void;
   refresh(): void;
 
-  //hide
+  // hide
   hideColumn(col: NgTableColComponent): void;
   showColumn(col: NgTableColComponent): void;
   toggleColumn(col: NgTableColComponent): void;
@@ -61,6 +61,6 @@ export interface NgTable{
   showColumnByIndex(index: number): void;
   toggleColumnByIndex(index: number): void;
   hideColumnByField(field: string): void;
-  showColumnByField(field: string): void
-  toggleColumnByField(field: string): void
+  showColumnByField(field: string): void;
+  toggleColumnByField(field: string): void;
 }

@@ -1,22 +1,20 @@
 import {
   AfterViewInit,
-  Component, ContentChildren, EventEmitter, forwardRef, Inject, Input, OnChanges, OnDestroy, OnInit, Optional,
+  Component, ContentChildren, EventEmitter, forwardRef, Inject, Input, OnDestroy, OnInit, Optional,
   Output,
-  QueryList,
-  SimpleChanges
+  QueryList
 } from '@angular/core';
-import {NgTableColComponent} from "../ng-table-col/ng-table-col.component";
-import {from} from "linq/linq";
-import {Subscription, BehaviorSubject, Observable} from "rxjs";
-import {from as _from, combineLatest as _combineLatest} from "rxjs";
+import {NgTableColComponent} from '../ng-table-col/ng-table-col.component';
+import {from} from 'linq/linq';
+import {Subscription, BehaviorSubject, Observable} from 'rxjs';
+import {from as _from, combineLatest as _combineLatest} from 'rxjs';
 import {filter, switchMap, map, take, skip, debounceTime, distinctUntilChanged, tap} from 'rxjs/operators';
-import {isNullOrUndefined, isObject} from "util";
-import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
-import {TD_TEMPLATE} from "../template-type.pipe";
-import {NG_TABLE_TOKEN, NgTable} from "../ng-table-token";
-import {NG_TABLE_I18N, NgTableI18nService} from "../locale/ng-table-i18n.service";
-import {isEmpty} from "rxjs/internal/operators";
+import {isNullOrUndefined, isObject} from 'util';
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TD_TEMPLATE} from '../template-type.pipe';
+import {NG_TABLE_TOKEN, NgTable} from '../ng-table-token';
+import {NG_TABLE_I18N, NgTableI18nService} from '../locale/ng-table-i18n.service';
 
 
 @Component({
@@ -30,96 +28,96 @@ import {isEmpty} from "rxjs/internal/operators";
 export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDestroy {
   TD_TEMPLATE = TD_TEMPLATE;
 
-  //basic
+  // basic
   data$: BehaviorSubject<Array<any>> = new BehaviorSubject<Array<any>>([]);
   @Input()
-  set data(value: Array<any>) {this.data$.next(value);}
-  get data(): Array<any> { return this.data$.getValue();}
+  set data(value: Array<any>) {this.data$.next(value); }
+  get data(): Array<any> { return this.data$.getValue(); }
   rows$: BehaviorSubject<Array<any>> = new BehaviorSubject<Array<any>>([]);
   @Input()
-  set rows(value: Array<any>){this.rows$.next(value);}
-  get rows(): Array<any>{ return this.rows$.getValue();}
+  set rows(value: Array<any>) {this.rows$.next(value); }
+  get rows(): Array<any> { return this.rows$.getValue(); }
 
   @ContentChildren(NgTableColComponent)
   cols: QueryList<NgTableColComponent>;
-  total: number = 0;
+  total = 0;
 
-  //pagination
+  // pagination
   page$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-  set page(value: number){ this.page$.next(value);}
-  get page(): number{ return this.page$.getValue();}
+  set page(value: number) { this.page$.next(value); }
+  get page(): number { return this.page$.getValue(); }
   size$: BehaviorSubject<number> = new BehaviorSubject<number>(10);
-  set size(value: number){this.size$.next(value);}
-  get size(): number{ return this.size$.getValue();}
+  set size(value: number) {this.size$.next(value); }
+  get size(): number { return this.size$.getValue(); }
   sizeList: Array<number> = [10, 25, 50, 100];
 
-  //search
-  search$: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  set search(term: string){this.search$.next(term);}
-  get search(): string{return this.search$.getValue();}
+  // search
+  search$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  set search(term: string) {this.search$.next(term); }
+  get search(): string {return this.search$.getValue(); }
   searchSub: Subscription;
   @Input()
-  searchFun = (row: any, cols: Array<NgTableColComponent>, term: string) => {
-    return !from(cols).where((col) => col.formatter(row[col.field]).toString().includes(term)).isEmpty()
-  };
+  searchFun = (row: any, cols: Array<NgTableColComponent>, term: string) =>
+    !from(cols).where((col) => col.formatter(row[col.field]).toString().includes(term)).isEmpty()
   query$ = new BehaviorSubject<{[key: string]: any}>({});
   @Input()
-  set query(value: {[key: string]: any}){this.query$.next(value);}
-  get query():{[key: string]: any}{return this.query$.getValue();}
+  set query(value: {[key: string]: any}) {this.query$.next(value); }
+  get query(): {[key: string]: any} {return this.query$.getValue(); }
   querySub: Subscription;
   @Input()
   queryFun = (row: any, index: number, query: any) => {
     return !from(query)
       .where((field) => {
-        if(field.value == '')
+        if (field.value === '') {
           return true;
+        }
 
-        let formatter = from(this.cols.toArray())
-          .where((col) => col.field == field.key)
+        const formatter = from(this.cols.toArray())
+          .where((col) => col.field === field.key)
           .select((col) => col.formatter)
-          .defaultIfEmpty((value) => value + "").first();
-         return  formatter(row[field.key]).toString().includes(field.value.toString())}
+          .defaultIfEmpty((value) => value + '').first();
+         return  formatter(row[field.key]).toString().includes(field.value.toString()); }
       ).isEmpty();
-  };
+  }
 
 
-  //orderBy
+  // orderBy
   orderBySub: Subscription;
-  sort$: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  get sort(): string {return this.sort$.getValue();}
+  sort$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  get sort(): string {return this.sort$.getValue(); }
   @Input()
-  set sort(value: string) {this.sort$.next(value);}
+  set sort(value: string) {this.sort$.next(value); }
   order$: BehaviorSubject<'desc' | 'asc'> = new BehaviorSubject<'desc' | 'asc'>('asc');
-  get order() {return this.order$.getValue();}
+  get order() {return this.order$.getValue(); }
   @Input()
-  set order(value) {this.order$.next(value);}
+  set order(value) {this.order$.next(value); }
 
-  //refresh
+  // refresh
   refresh$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   refreshSub: Subscription;
 
-  //http async
-  url$: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  // http async
+  url$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   httpSub: Subscription;
   @Input()
-  set url(value: string) {this.url$.next(value);}
-  get url(): string {return this.url$.getValue();}
+  set url(value: string) {this.url$.next(value); }
+  get url(): string {return this.url$.getValue(); }
 
 
-  //keep
-  @Input() keep: boolean = false;
+  // keep
+  @Input() keep = false;
   keepSub: Subscription;
   params$ = _combineLatest(
     this.refresh$, this.page$, this.size$, this.sort$, this.order$, this.search$, this.query$,
     (refresh, offset, limit, sort, order, search, query) => {
-      let params = {
+      const params = {
         offset: this.startIndex,
         limit: limit,
         order: order
       };
-      if(sort) params['sort'] = sort;
-      if(search) params['search'] = search;
-      if(!isNullOrUndefined(query) && isObject(query) && Object.keys(query).length > 0) params['query'] = JSON.stringify(query);
+      if (sort) { params['sort'] = sort; }
+      if (search) { params['search'] = search; }
+      if (!isNullOrUndefined(query) && isObject(query) && Object.keys(query).length > 0) { params['query'] = JSON.stringify(query); }
 
       return params;
     }).pipe(debounceTime(500));
@@ -127,18 +125,18 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
   @Output()
   onInitKeepParams = new EventEmitter<any>();
 
-  //loading;
-  isLoading: boolean = false;
+  // loading;
+  isLoading = false;
 
-  //event
+  // event
   @Output()
   onRowClick = new EventEmitter<any>();
 
-  //handler
+  // handler
   @Input()
   responseHandler = (data: any): any => {
     return data;
-  };
+  }
 
   constructor(
     protected http: HttpClient,
@@ -148,18 +146,18 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
   ) { }
 
   ngOnInit() {
-    if(this.keep) this.keepConfigure();
+    if (this.keep) { this.keepConfigure(); }
 
-    //order
+    // order
     this.orderBySub = _combineLatest(
       this.sort$.pipe(
         skip(1),
-        filter((sort) => sort != "")
+        filter((sort) => sort !== '')
       ), this.order$,
-      (sort, order) => {return {sort: sort, order: order}}
+      (sort, order) => ({sort: sort, order: order})
     ).subscribe((orderInfo) => this.orderBy(orderInfo.sort, orderInfo.order));
 
-    //search
+    // search
     this.searchSub = this.search$
       .pipe(
         skip(1),
@@ -171,7 +169,7 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
         this.sort = this.sort;
       });
 
-    //query
+    // query
     this.querySub = this.query$
       .pipe(
         skip(1),
@@ -183,7 +181,7 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
         this.sort = this.sort;
       });
 
-    //http
+    // http
     this.httpSub = this.url$
       .pipe(
         filter((url) => !isNullOrUndefined(url) && Boolean(url)),
@@ -195,10 +193,10 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
         this.isLoading = false;
       });
 
-    //refresh
+    // refresh
     this.refreshSub = this.refresh$
       .pipe(
-        filter((r) => r != 0)
+        filter((r) => r !== 0)
       ).subscribe(r => {
         this.page = 1;
         this.sort = '';
@@ -212,52 +210,55 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
     this.data$
       .subscribe((data) => {
         let rows: Array<any>;
-        if(!isNullOrUndefined(this.query) && Object.keys(this.query).length > 0)
+        if (!isNullOrUndefined(this.query) && Object.keys(this.query).length > 0) {
           rows = this.queryData(this.query);
-        else if(this.search)
+        } else if (this.search) {
           rows = this.searchData(this.search);
-        else
+             } else {
           rows = data;
+             }
 
         this.initRows(rows, rows.length);
 
-        if(this.sort)
+        if (this.sort) {
           this.sort = this.sort;
+        }
 
-      })
+      });
   }
 
 
   ngOnDestroy(): void {
-    if(!isNullOrUndefined(this.searchSub)) this.searchSub.unsubscribe();
-    if(!isNullOrUndefined(this.httpSub)) this.httpSub.unsubscribe();
-    if(!isNullOrUndefined(this.keepSub)) this.keepSub.unsubscribe();
-    if(!isNullOrUndefined(this.orderBySub)) this.orderBySub.unsubscribe();
-    if(!isNullOrUndefined(this.querySub)) this.querySub.unsubscribe();
-    if(!isNullOrUndefined(this.refreshSub)) this.refreshSub.unsubscribe();
+    if (!isNullOrUndefined(this.searchSub)) { this.searchSub.unsubscribe(); }
+    if (!isNullOrUndefined(this.httpSub)) { this.httpSub.unsubscribe(); }
+    if (!isNullOrUndefined(this.keepSub)) { this.keepSub.unsubscribe(); }
+    if (!isNullOrUndefined(this.orderBySub)) { this.orderBySub.unsubscribe(); }
+    if (!isNullOrUndefined(this.querySub)) { this.querySub.unsubscribe(); }
+    if (!isNullOrUndefined(this.refreshSub)) { this.refreshSub.unsubscribe(); }
   }
 
-  initRows(rows: Array<any>, total: number){
+  initRows(rows: Array<any>, total: number) {
     this.rows = rows;
     this.total = total;
   }
 
-  get startIndex(): number{
-    let index = (this.page - 1) * this.size;
-    return isNaN(index)?0: index;
+  get startIndex(): number {
+    const index = (this.page - 1) * this.size;
+    return isNaN(index) ? 0 : index;
   }
 
-  get endIndex(): number{ return this.page * this.size;}
+  get endIndex(): number { return this.page * this.size; }
 
-  getSelections(field: string): Array<any>{
+  getSelections(field: string): Array<any> {
     return from(this.data).where(row => {
-      if(row[field])
+      if (row[field]) {
         return true;
-      return false
-    }).toArray()
+      }
+      return false;
+    }).toArray();
   }
 
-  checkAll(checked: boolean, field: string){
+  checkAll(checked: boolean, field: string) {
     _from(this.rows)
       .pipe(
         skip(this.startIndex),
@@ -265,43 +266,47 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
       ).subscribe((row) => row[field] = checked);
   }
 
-  radioChange(row: any, field: string){
+  radioChange(row: any, field: string) {
     _from(this.rows)
       .subscribe((r) => r[field] = false);
     row[field] = true;
   }
 
-  toggleOrder(sort: string){
-    if(sort == this.sort)
-      this.order = this.order == 'asc'? 'desc': 'asc';
-    else
+  toggleOrder(sort: string) {
+    if (sort === this.sort) {
+      this.order = this.order === 'asc' ? 'desc' : 'asc';
+    } else {
       this.sort = sort;
+    }
   }
 
-  orderBy(sort: string, order: 'desc' | 'asc'){
-    let col = from(this.cols.toArray()).where((col) => col.field == sort).first();
-    if(col.checkbox || col.radio)
+  orderBy(sort: string, order: 'desc' | 'asc') {
+    const col = from(this.cols.toArray()).where((c) => c.field === sort).first();
+    if (col.checkbox || col.radio) {
       return;
+    }
 
-    let formatter = col.formatter;
+    const formatter = col.formatter;
 
-    if(order == 'asc')
+    if (order === 'asc') {
       this.rows = from(this.rows).orderBy((row) => formatter(row[sort])).toArray();
-    else
+    } else {
       this.rows = from(this.rows).orderByDescending((row) => formatter(row[sort])).toArray();
+    }
   }
 
-  keepConfigure(){
-    if(isNullOrUndefined(this.route) || isNullOrUndefined(this.router))
-      throw new ReferenceError("Import RoutingModule to your module");
+  keepConfigure() {
+    if (isNullOrUndefined(this.route) || isNullOrUndefined(this.router)) {
+      throw new ReferenceError('Import RoutingModule to your module');
+    }
 
-    let queryParams =  JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
-    if('sort' in queryParams) this.sort = queryParams['sort'];
-    if('search' in queryParams) this.search = queryParams['search'];
-    if('limit' in queryParams) this.size = +queryParams['limit'];
-    if('offset' in queryParams) this.page = +queryParams['offset'] / this.size$.getValue() + 1;
-    if('order' in queryParams) this.order = queryParams['order'];
-    if('query' in queryParams && queryParams['query']) {
+    const queryParams =  JSON.parse(JSON.stringify(this.route.snapshot.queryParams));
+    if ('sort' in queryParams) { this.sort = queryParams['sort']; }
+    if ('search' in queryParams) { this.search = queryParams['search']; }
+    if ('limit' in queryParams) { this.size = +queryParams['limit']; }
+    if ('offset' in queryParams) { this.page = +queryParams['offset'] / this.size$.getValue() + 1; }
+    if ('order' in queryParams) { this.order = queryParams['order']; }
+    if ('query' in queryParams && queryParams['query']) {
       queryParams['query'] = JSON.parse(queryParams['query']);
       this.query = queryParams['query'];
     }
@@ -316,84 +321,84 @@ export class NgTableComponent implements NgTable, OnInit, AfterViewInit,  OnDest
     });
 
     this.keepSub = this.params$.pipe(skip(1))
-      .subscribe((params) => this.router.navigate(['.'], {queryParams: params, relativeTo: this.route, replaceUrl: true}))
+      .subscribe((params) => this.router.navigate(['.'], {queryParams: params, relativeTo: this.route, replaceUrl: true}));
   }
 
-  selectSize(size: number){
+  selectSize(size: number) {
     this.page = 1;
     this.size$.next(size);
   }
 
-  generalSearch(term: string){
+  generalSearch(term: string) {
     this.page = 1;
     this.search$.next(term);
   }
 
-  advancedSearch(query: any){
+  advancedSearch(query: any) {
     this.page = 1;
     this.query$.next(query);
   }
 
-  refresh(){
+  refresh() {
     this.refresh$.next(this.refresh$.getValue() + 1);
   }
 
-  //i18n
-  formatAfterPerPage = () => {return this.ngTableI18nService.formatAfterPerPage();};
-  formatBeforePerPage = () => {return this.ngTableI18nService.formatBeforePerPage();};
-  formatShowingRows = (from: number, to: number, total: number) => {return this.ngTableI18nService.formatShowingRows(from, to , total)};
-  formatLoading = () => {return this.ngTableI18nService.formatLoading();};
+  // i18n
+  formatAfterPerPage = () => this.ngTableI18nService.formatAfterPerPage();
+  formatBeforePerPage = () => this.ngTableI18nService.formatBeforePerPage();
+  formatShowingRows = (f: number, to: number, total: number) => this.ngTableI18nService.formatShowingRows(f, to , total);
+  formatLoading = () => this.ngTableI18nService.formatLoading();
 
-  //hide
-  hideColumn(col: NgTableColComponent): void{
+  // hide
+  hideColumn(col: NgTableColComponent): void {
     col.hide();
   }
 
-  showColumn(col: NgTableColComponent): void{
+  showColumn(col: NgTableColComponent): void {
     col.show();
   }
 
-  toggleColumn(col: NgTableColComponent): void{
+  toggleColumn(col: NgTableColComponent): void {
     col.toggle();
   }
 
-  hideColumnByIndex(index: number): void{
-    if(index >= this.cols.length) return;
+  hideColumnByIndex(index: number): void {
+    if (index >= this.cols.length) { return; }
     this.cols.toArray()[index].hide();
   }
 
-  showColumnByIndex(index: number): void{
-    if(index >= this.cols.length) return;
+  showColumnByIndex(index: number): void {
+    if (index >= this.cols.length) { return; }
     this.cols.toArray()[index].show();
   }
 
-  toggleColumnByIndex(index: number): void{
-    if(index >= this.cols.length) return;
+  toggleColumnByIndex(index: number): void {
+    if (index >= this.cols.length) { return; }
     this.cols.toArray()[index].toggle();
   }
 
   hideColumnByField(field: string): void {
-    this.cols.toArray().filter((col) => col.field == field)
+    this.cols.toArray().filter((col) => col.field === field)
       .forEach((col) => col.hide());
   }
 
   showColumnByField(field: string): void {
-    this.cols.toArray().filter((col) => col.field == field)
+    this.cols.toArray().filter((col) => col.field === field)
       .forEach((col) => col.show());
   }
 
-  toggleColumnByField(field: string): void{
-    this.cols.toArray().filter((col) => col.field == field)
+  toggleColumnByField(field: string): void {
+    this.cols.toArray().filter((col) => col.field === field)
       .forEach((col) => col.show());
   }
 
-  private searchData(term: string): Array<any>{
+  private searchData(term: string): Array<any> {
     return term ?
       from(this.data).where((row) => this.searchFun(row, this.cols.toArray(), term)).toArray() :
       this.data;
   }
 
-  private queryData(query: any): Array<any>{
+  private queryData(query: any): Array<any> {
     return Object.keys(query).length > 0 ?
       from(this.data).where((row, index) => this.queryFun(row, index, query)).toArray() :
       this.data;

@@ -2,7 +2,7 @@ import {
   Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef,
   ViewChild
 } from '@angular/core';
-import {isNullOrUndefined} from "util";
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'es-ng-table-col',
@@ -14,13 +14,13 @@ export class NgTableColComponent implements OnInit {
   @Input()title: string;
   @Input()field: string;
 
-  @Input() checkbox: boolean = false;
-  @Input() radio: boolean = false;
-  @Input() hidden: boolean = false;
+  @Input() checkbox = false;
+  @Input() radio = false;
+  @Input() hidden = false;
 
   @Input()formatter = (value: any) => {
-      return value? value + '': '-';
-  };
+      return value ? value + '' : '-';
+  }
   @ViewChild('textTemplate')  defaultTextTemplate: TemplateRef<any>;
   @ContentChild('textTemplate')textTemplate: TemplateRef<any>;
 
@@ -32,21 +32,19 @@ export class NgTableColComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if(isNullOrUndefined(this.textTemplate))
-      this.textTemplate = this.defaultTextTemplate;
-    if(isNullOrUndefined(this.editTemplate))
-      this.editTemplate = this.defaultEditTemplate;
+    if (isNullOrUndefined(this.textTemplate)) {this.textTemplate = this.defaultTextTemplate; }
+    if (isNullOrUndefined(this.editTemplate)) {this.editTemplate = this.defaultEditTemplate; }
   }
 
-  hide(): void{
+  hide(): void {
     this.hidden = true;
   }
 
-  show(): void{
+  show(): void {
     this.hidden = false;
   }
 
-  toggle(): void{
+  toggle(): void {
     this.hidden = !this.hidden;
   }
 

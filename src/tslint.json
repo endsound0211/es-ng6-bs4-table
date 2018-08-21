@@ -10,8 +10,11 @@
         "component-selector": [
             true,
             "element",
-            "app",
+            ["app", "es"],
             "kebab-case"
-        ]
+        ],
+        "max-line-length": [false],
+        "member-ordering": [false],
+        "no-output-on-prefix": [false]
     }
 }
