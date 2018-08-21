@@ -16,7 +16,7 @@ import {NG_TABLE_TOKEN} from "../ng-table-token";
     {provide: NG_TABLE_TOKEN, useExisting: forwardRef(() => NgSdTableComponent), multi: false}
   ]
 })
-export class NgSdTableComponent extends NgTableComponent implements OnInit, AfterViewInit, OnChanges{
+export class NgSdTableComponent extends NgTableComponent implements OnInit, AfterViewInit{
 
   ngOnInit(){
     if(this.keep) this.keepConfigure();
@@ -40,7 +40,4 @@ export class NgSdTableComponent extends NgTableComponent implements OnInit, Afte
 
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
 }

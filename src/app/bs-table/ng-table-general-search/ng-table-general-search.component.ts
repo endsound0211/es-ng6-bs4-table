@@ -18,7 +18,6 @@ export class NgTableGeneralSearchComponent implements OnInit {
 
   ngOnInit() {
     this.table.search$
-      .pipe(take(1))
       .subscribe((term) =>this.searchTerm = term);
   }
 

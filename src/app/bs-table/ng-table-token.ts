@@ -1,4 +1,4 @@
-import {InjectionToken, QueryList} from "@angular/core";
+import {EventEmitter, InjectionToken, QueryList} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {NgTableColComponent} from "./ng-table-col/ng-table-col.component";
 
@@ -6,6 +6,7 @@ export const NG_TABLE_TOKEN = new InjectionToken<NgTable>("NgTable");
 
 export interface NgTable{
   //basic
+  data$: BehaviorSubject<Array<any>>;
   data: Array<any>;
   rows$: BehaviorSubject<Array<any>>;
   rows: Array<any>;
@@ -35,6 +36,10 @@ export interface NgTable{
   url$: BehaviorSubject<string>
   url: string;
   params$: Observable<any>;
+
+  //event
+  onRowClick: EventEmitter<any>;
+  onInitKeepParams: EventEmitter<any>;
 
 
   initRows(rows: Array<any>, total: number): void;
