@@ -398,14 +398,15 @@ then, put this component in <es-ng-table-tool-bar>
 
 ### NgTableColComponent
 
-| Name        | Type     | Default | Description |
-|-------------|----------|---------|-------------|
-| `title`     | string   |         | th text.
-| `field`     | string   |         | field name in row.
-| `checkbox`  | boolean  | false   | is checkbox cell?
-| `radio`     | boolean  | false   | is radio cell?
-| `hidden`    | boolean  | false   | is column hidden?
-| `formatter` | Function |         | formatter cell. (value: any) => string
+| Name         | Type          | Default | Description |
+|--------------|---------------|---------|-------------|
+| `title`      | string        |         | th text.
+| `field`      | string        |         | field name in row.
+| `checkbox`   | boolean       | false   | is checkbox cell?
+| `radio`      | boolean       | false   | is radio cell?
+| `hidden`     | boolean       | false   | is column hidden?
+| `classArray` | Array<string> | []      | class of th and td.
+| `formatter`  | Function      |         | formatter cell. (value: any) => string
 
 ## Output
 

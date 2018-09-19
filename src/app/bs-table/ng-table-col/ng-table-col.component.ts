@@ -18,6 +18,8 @@ export class NgTableColComponent implements OnInit {
   @Input() radio = false;
   @Input() hidden = false;
 
+  @Input() classArray = [];
+
   @Input()formatter = (value: any) => {
       return value ? value + '' : '-';
   }
@@ -46,6 +48,10 @@ export class NgTableColComponent implements OnInit {
 
   toggle(): void {
     this.hidden = !this.hidden;
+  }
+
+  get classString(): string {
+    return this.classArray.join(' ');
   }
 
 }
