@@ -23,8 +23,10 @@ export interface NgTable {
   // search
   search$: BehaviorSubject<string>;
   search: string;
+  searchFun: (row: any, cols: Array<NgTableColComponent>, term: string) => boolean;
   query$: BehaviorSubject<{[key: string]: any}>;
   query: {[key: string]: any};
+  queryFun: (row: any, index: number, query: any) => boolean;
 
   // order by
   sort$: BehaviorSubject<string>;

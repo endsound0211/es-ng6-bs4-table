@@ -32,6 +32,9 @@
     * [Advanced Search](#advanced-search)
     * [Hide Column](#hide-column)
     * [Extend Tool](#extend-tool)
+* [Directive](#directive)
+    * [esSearchCaseSensitive](#esSearchCaseSensitive)
+    * [esAdvancedSearchCaseSensitive](#esAdvancedSearchCaseSensitive)
 * [Variable](#variable)
 * [Method](#method)
 * [Input](#input)
@@ -323,6 +326,25 @@ then, put this component in <es-ng-table-tool-bar>
     </es-ng-table-tool-bar>
 </es-ng-table>
 ````
+
+## Directive
+
+### esSearchCaseSensitive
+
+The default search is case sensitive. Just add this change it.
+
+````angular2html
+<es-ng-table [esSearchCaseSensitive]="false"></es-ng-table>
+````
+
+### esAdvancedSearchCaseSensitive
+
+The default advanced search is case sensitive. Just add this to change it.
+
+````angular2html
+<es-ng-table [esAdvancedSearchCaseSensitive]="false"></es-ng-table>
+````
+
 
 ## Variable
 

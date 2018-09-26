@@ -12,6 +12,8 @@ import {NG_TABLE_I18N, NgTableI18nService} from './locale/ng-table-i18n.service'
 import {NgTableEnUsService} from './locale/ng-table-en-us.service';
 import { NgTableAdvancedSearchComponent } from './ng-table-advanced-search/ng-table-advanced-search.component';
 import { NgTableHideColComponent } from './ng-table-hide-col/ng-table-hide-col.component';
+import { SearchCaseSensitiveDirective } from './search-case-sensitive.directive';
+import { AdvancedSearchCaseSensitiveDirective } from './advanced-search-case-sensitive.directive';
 
 export function ngTableI18nFactory(injector: Injector): NgTableI18nService {
   return injector.get(NG_TABLE_I18N, new NgTableEnUsService(), InjectFlags.SkipSelf);
@@ -33,6 +35,8 @@ export function ngTableI18nFactory(injector: Injector): NgTableI18nService {
     NgTableToolBarComponent,
     NgTableAdvancedSearchComponent,
     NgTableHideColComponent,
+    SearchCaseSensitiveDirective,
+    AdvancedSearchCaseSensitiveDirective,
   ],
   exports: [
     NgTableComponent,
@@ -41,7 +45,9 @@ export function ngTableI18nFactory(injector: Injector): NgTableI18nService {
     NgTableToolBarComponent,
     NgTableGeneralSearchComponent,
     NgTableAdvancedSearchComponent,
-    NgTableHideColComponent
+    NgTableHideColComponent,
+    SearchCaseSensitiveDirective,
+    AdvancedSearchCaseSensitiveDirective
   ],
   providers: [
     {provide: NG_TABLE_I18N, useFactory: ngTableI18nFactory, deps: [Injector], multi: false}
