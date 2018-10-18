@@ -15,6 +15,11 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "es-ng-bs-table": [
+        "dist/es-ng-bs-table"
+      ]
+    }
   }
 }
