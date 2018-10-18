@@ -3,10 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import {BsTableModule} from './bs-table/bs-table.module';
+import {BsTableModule} from 'es-ng-bs-table';
 import {AppRoutingModule} from './app-routing.module';
-import {NG_TABLE_I18N} from './bs-table/locale/ng-table-i18n.service';
-import {NgTableZhTwService} from './bs-table/locale/ng-table-zh-tw.service';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({

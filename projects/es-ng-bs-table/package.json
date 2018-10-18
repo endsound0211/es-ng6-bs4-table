@@ -1,0 +1,36 @@
+{
+  "name": "es-ng6-bs4-table",
+  "version": "1.7.0",
+  "description": "angular 6 boostrap 4 table",
+  "keywords": [
+    "angular",
+    "angular 6",
+    "ng",
+    "ng6",
+    "bootstrap",
+    "bootstrap 4",
+    "bs",
+    "bs4",
+    "table"
+  ],
+  "author": "EndSound",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/endsound0211/es-ng6-bs4-table.git"
+  },
+  "bugs": {
+    "url": "https://github.com/endsound0211/es-ng6-bs4-table/issues"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^6.0.0",
+    "@angular/core": "^6.0.0",
+    "@angular/http": "^6.0.0",
+    "@angular/router": "^6.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^2.0.0",
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1",
+    "linq": "^3.1.0",
+    "open-iconic": "^1.1.1"
+  }
+}
