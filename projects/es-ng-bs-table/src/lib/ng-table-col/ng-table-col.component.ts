@@ -21,7 +21,7 @@ export class NgTableColComponent implements OnInit {
   @Input() classArray = [];
 
   @Input()formatter = (value: any) => {
-      return value ? value + '' : '-';
+      return !isNullOrUndefined(value) ? value + '' : '-';
   }
   @ViewChild('textTemplate')  defaultTextTemplate: TemplateRef<any>;
   @ContentChild('textTemplate')textTemplate: TemplateRef<any>;
